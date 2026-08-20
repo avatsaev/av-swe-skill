@@ -1,6 +1,6 @@
 {
   "name": "av-swe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Manage a large-scale software engineering project as a versioned, ordered, dependency-aware task plan, executed one sprint at a time through a backlog -> in_progress -> done state machine, with an auditable trail and PLAN.md as the single source of truth.",
   "keywords": [
     "agent-skill",

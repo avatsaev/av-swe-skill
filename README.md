@@ -12,13 +12,27 @@ working from specs alone.
 ## Install
 
 ```bash
-npx skillpm install av-swe
-# or, inside an npm workspace / plain npm project
-npm install av-swe
+npx skills add avatsaev/av-swe-skill
 ```
 
-`skillpm install` wires the skill into your agent's skill directory automatically. See
-[skillpm](https://skillpm.dev) for details.
+This uses the official [`skills`](https://www.npmjs.com/package/skills) CLI (the native agent-skills
+package manager, maintained by Vercel), which auto-detects your coding agent (Claude Code, Cursor,
+Codex, Gemini CLI, and 70+ others) and installs the skill into its skills directory.
+
+```bash
+# Install globally, available across all projects
+npx skills add avatsaev/av-swe-skill -g
+
+# Install to a specific agent
+npx skills add avatsaev/av-swe-skill -a claude-code
+```
+
+The skill is also published to the npm registry as [`av-swe`](https://www.npmjs.com/package/av-swe)
+for registry-based tooling such as [`skillpm`](https://skillpm.dev):
+
+```bash
+npx skillpm install av-swe
+```
 
 ## What it does
 
