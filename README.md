@@ -72,6 +72,43 @@ stateDiagram-v2
     done --> [*]
 ```
 
+## The plan is documentation — built for agent handoff
+
+Every artifact av-swe produces is durable, self-describing markdown on disk. That makes the plan
+root a **shared memory** for agents: a fresh agent — different session, different model, zero
+conversation history — can open `swe/` and reconstruct the full state of the project: what's being
+built and why (`specs/`), in what order and how far along (`PLAN.md` + folder positions), and
+exactly what happened on every finished task (`done/*-summary.md`).
+
+```mermaid
+flowchart LR
+    S["swe/specs/*.md<br/><i>what & why</i>"] --> P["PLAN.md<br/><i>order, deps, coverage,<br/>Version + Updated</i>"]
+    P --> T["task-NNN-*.md<br/><i>scope, depends-on,<br/>verification plan</i>"]
+    T --> SRC["source + tests<br/><i>the actual change</i>"]
+    SRC --> SUM["done/task-NNN-summary.md<br/><i>files changed, spec mapping,<br/>real build/test output, timestamp</i>"]
+    SUM -.->|"traces back to"| S
+```
+
+Concretely, the traceability chain works in both directions:
+
+- **Forward** — every spec section maps to at least one task (`PLAN.md` has an explicit coverage
+  table), every task names what it covers and depends on, and every completed task leaves a summary
+  mapping the implementation back to those spec sections.
+- **Backward** — given any source change, its task summary tells a future agent *why* it exists,
+  which spec drove it, and the actual commands + outputs that proved it worked.
+
+The **timeline** is equally legible without any external tracker:
+
+- A task's physical folder (`backlog/` → `in_progress/` → `blocked/` → `done/`) *is* its state — no
+  stale status fields to trust.
+- Each summary carries a completion timestamp; `PLAN.md` carries a version and last-updated date.
+- Blocked tasks record *why* they're blocked, so the next agent doesn't rediscover the blocker.
+- Everything is plain files, so `git log` over `swe/` gives the full development history for free.
+
+In practice this means agents can hand off mid-project with no briefing: `av-swe status` answers
+"where are we", the next backlog task answers "what do I do", and the summaries answer "what did the
+agents before me do, and did it actually work".
+
 ## Usage
 
 Once installed, the skill activates automatically when your prompt matches its description (planning
