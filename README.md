@@ -5,9 +5,20 @@ as a versioned, ordered, dependency-aware task plan — executed one sprint at a
 `backlog -> in_progress -> blocked -> done` state machine, with an auditable trail and `PLAN.md`
 as the single source of truth.
 
-It generalizes the clean-room `scope -> plan -> implement` pipeline for **ordinary (non-clean-room)
-development**, where the real source code is present and tasks reference it directly instead of
-working from specs alone.
+The real source code is always present and in scope: specs and tasks reference it directly, and
+every task is gated on your project's actual build/typecheck/lint/test commands — never a guess.
+
+```mermaid
+flowchart LR
+    A["av-swe scope"] -->|"swe/specs/*.md"| B["av-swe plan"]
+    B -->|"PLAN.md + sprint-NNN/"| C["av-swe implement"]
+    C -->|"task done"| C
+    C --> D["av-swe status / validate"]
+    D -.->|"next sprint"| C
+    E["av-swe block / unblock"] -.-> C
+    F["av-swe configure"] -.-> B
+    F -.-> C
+```
 
 ## Install
 
@@ -49,6 +60,17 @@ Seven operations, driven from a plan root (default `<project-root>/swe/`):
 | `configure` | Inspect or set project conventions |
 
 Only `implement` writes source code — the rest produce or mutate planning artifacts.
+
+```mermaid
+stateDiagram-v2
+    [*] --> backlog
+    backlog --> in_progress: pick up next task
+    in_progress --> done: build + tests pass
+    in_progress --> blocked: av-swe block
+    blocked --> backlog: av-swe unblock
+    blocked --> in_progress: av-swe unblock (resumable)
+    done --> [*]
+```
 
 ## Usage
 
