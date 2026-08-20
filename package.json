@@ -1,0 +1,31 @@
+{
+  "name": "av-swe",
+  "version": "1.0.0",
+  "description": "Manage a large-scale software engineering project as a versioned, ordered, dependency-aware task plan, executed one sprint at a time through a backlog -> in_progress -> done state machine, with an auditable trail and PLAN.md as the single source of truth.",
+  "keywords": [
+    "agent-skill",
+    "claude",
+    "claude-code",
+    "ai-agent",
+    "software-engineering",
+    "project-planning",
+    "sprints",
+    "task-management"
+  ],
+  "homepage": "https://github.com/avatsaev/av-swe-skill#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avatsaev/av-swe-skill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/avatsaev/av-swe-skill/issues"
+  },
+  "author": "avatsaev",
+  "license": "MIT",
+  "files": [
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {}
+}
