@@ -5,6 +5,7 @@ Seen by all ops. All fields optional.
 ```jsonc
 {
   "planRoot": "swe",                  // plan root relative to project root (default "swe")
+  "sprintsDir": "sprints",           // sprint folder directory under plan root (default "sprints")
   "build": "npm run build",           // shell command run as the build gate
   "typecheck": "npm run typecheck",   // optional typecheck gate
   "lint": "npm run lint",             // optional lint gate
@@ -26,11 +27,10 @@ Projects that predate `av-swe`, or whose plan root doesn't match the layout in
 part of the schema every project needs, but are an established, non-invented pattern — read the
 project's own `av-swe.config.json` for its actual meaning rather than guessing:
 
-- `layout` — overrides for a non-default plan root shape, e.g. `sprintsDir` (if sprints don't live
-  directly under the plan root), `specsDirs` (if specs are split across multiple existing
-  directories instead of one `specs/`), `specsIndex` (an existing index file standing in for
-  `specs/overview.md`), plus a free-form `comment` recording *why* the project deviates and which
-  deviations are still open vs. already closed.
+- `layout` — overrides for a non-default plan root shape, e.g. `specsDirs` (if specs are split
+  across multiple existing directories instead of one `specs/`), `specsIndex` (an existing index
+  file standing in for `specs/overview.md`), plus a free-form `comment` recording *why* the project
+  deviates and which deviations are still open vs. already closed.
 - `gateNotes` — preferred scoped/focused commands to run **inside** a task (e.g. a single package's
   build, a focused test run) vs. the full `build`/`test` gates, which still run once at sprint end
   (see [../ops/implement.md](../ops/implement.md)).

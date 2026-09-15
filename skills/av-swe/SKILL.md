@@ -33,7 +33,7 @@ linked file for the op you're about to run — do not rely on this page alone.
 | Op | Effect | Produces / mutates | Full procedure |
 |----|--------|--------------------|-----------------|
 | `av-swe scope` | Capture requirements and current architecture into spec docs | `swe/specs/*.md` | [ops/scope.md](ops/scope.md) |
-| `av-swe plan` | Derive an ordered sprint + task plan from specs/source | `swe/PLAN.md`, `swe/sprint-NNN-*/` | [ops/plan.md](ops/plan.md) |
+| `av-swe plan` | Derive an ordered sprint + task plan from specs/source | `swe/PLAN.md`, `swe/sprints/sprint-NNN-*/` | [ops/plan.md](ops/plan.md) |
 | `av-swe implement` | Execute one sprint through the state machine, gated on build+test | task moves + `*-summary.md` | [ops/implement.md](ops/implement.md) |
 | `av-swe status` | Report plan health: open/in_progress/blocked/done, next sprint, gaps | read-only report | [ops/status.md](ops/status.md) |
 | `av-swe validate` | Check plan integrity (ordering, deps, coverage, ids) | read-only report | [ops/validate.md](ops/validate.md) |
@@ -47,8 +47,8 @@ Only `implement` writes source code. The others produce or mutate planning artif
 ## Plan root & layout
 
 Everything is rooted at the **plan root** (default `<project-root>/swe/`; override via
-`configure`): `PLAN.md` at the root, `specs/` + `notes/` as inputs, and one
-`sprint-NNN-[kebab-name]/` per sprint holding `backlog/`, `in_progress/`, `blocked/`, `done/` task
+`configure`): `PLAN.md` at the root, `specs/` + `notes/` as inputs, and sprint folders under
+`sprints/sprint-NNN-[kebab-name]/`, each holding `backlog/`, `in_progress/`, `blocked/`, `done/` task
 folders. All four state folders always exist (each holds a `.gitkeep`, even when empty), and a
 task's physical folder — never its `Status:` field alone — is the source of truth for its state.
 
@@ -95,6 +95,6 @@ Schema, defaults, and project-specific escape hatches: [conventions/config.md](c
 
 1. `av-swe configure` — optional; set test/build gates if the default guesses are wrong.
 2. `av-swe scope` — unless requirements are already written down.
-3. `av-swe plan` — derive `swe/PLAN.md` + `sprint-001/…` task files.
+3. `av-swe plan` — derive `swe/PLAN.md` + `sprints/sprint-001/…` task files.
 4. `av-swe implement` — run sprints in order.
 5. `av-swe status` — at any point to see where the project stands.

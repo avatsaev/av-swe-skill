@@ -11,7 +11,7 @@ every task is gated on your project's actual build/typecheck/lint/test commands 
 ```mermaid
 flowchart LR
     A["av-swe scope"] -->|"swe/specs/*.md"| B["av-swe plan"]
-    B -->|"PLAN.md + sprint-NNN/"| C["av-swe implement"]
+    B -->|"PLAN.md + sprints/sprint-NNN/"| C["av-swe implement"]
     C -->|"task done"| C
     C --> D["av-swe status / validate"]
     D -.->|"next sprint"| C
@@ -78,14 +78,14 @@ Every artifact av-swe produces is durable, self-describing markdown on disk. Tha
 root a **shared memory** for agents: a fresh agent — different session, different model, zero
 conversation history — can open `swe/` and reconstruct the full state of the project: what's being
 built and why (`specs/`), in what order and how far along (`PLAN.md` + folder positions), and
-exactly what happened on every finished task (`done/*-summary.md`).
+exactly what happened on every finished task (`sprints/*/done/*-summary.md`).
 
 ```mermaid
 flowchart LR
     S["swe/specs/*.md<br/><i>what & why</i>"] --> P["PLAN.md<br/><i>order, deps, coverage,<br/>Version + Updated</i>"]
-    P --> T["task-NNN-*.md<br/><i>scope, depends-on,<br/>verification plan</i>"]
+    P --> T["sprints/sprint-NNN/backlog/task-NNN-*.md<br/><i>scope, depends-on,<br/>verification plan</i>"]
     T --> SRC["source + tests<br/><i>the actual change</i>"]
-    SRC --> SUM["done/task-NNN-summary.md<br/><i>files changed, spec mapping,<br/>real build/test output, timestamp</i>"]
+    SRC --> SUM["sprints/*/done/task-NNN-summary.md<br/><i>files changed, spec mapping,<br/>real build/test output, timestamp</i>"]
     SUM -.->|"traces back to"| S
 ```
 
@@ -140,25 +140,26 @@ skipped):
 ```
 swe/
   PLAN.md
-  sprint-001-foundation/
-    backlog/task-001-scaffold-schema.md
-    backlog/task-002-wire-migrations.md
-    in_progress/.gitkeep
-    blocked/.gitkeep
-    done/.gitkeep
+  sprints/
+    sprint-001-foundation/
+      backlog/task-001-scaffold-schema.md
+      backlog/task-002-wire-migrations.md
+      in_progress/.gitkeep
+      blocked/.gitkeep
+      done/.gitkeep
 ```
 
 ### Run a sprint
 
 ```
-> av-swe implement sprint-001
+> av-swe implement sprints/sprint-001-foundation
 ```
 
 Works one task at a time through `backlog -> in_progress -> done`, gated on the project's real
 build/typecheck/lint/test commands. Never marks a task done with a failing build; a stuck task stays
 in `in_progress/` with a `## Blocker` section instead of being skipped. Writes a
-`done/task-NNN-*-summary.md` audit trail per completed task. Omit the sprint argument to auto-pick
-the lowest-numbered sprint that still has backlog tasks.
+`sprints/<sprint>/done/task-NNN-*-summary.md` audit trail per completed task. Omit the sprint
+argument to auto-pick the lowest-numbered sprint that still has backlog tasks.
 
 ### Check progress
 
@@ -167,9 +168,9 @@ the lowest-numbered sprint that still has backlog tasks.
 ```
 
 ```
-sprint-001-foundation: goal "stand up persistence layer"
+sprints/sprint-001-foundation: goal "stand up persistence layer"
   backlog: 3   in_progress: 1   blocked: 0   done: 4
-Next sprint to run: sprint-001-foundation
+Next sprint to run: sprints/sprint-001-foundation
 in_progress: task-005-add-index-migration
 ```
 
@@ -183,8 +184,8 @@ Checks sprint/task ordering, dependency direction, id uniqueness, and spec cover
 ### Handle a blocker
 
 ```
-> av-swe block sprint-001/task-005-add-index-migration "waiting on staging DB credentials"
-> av-swe unblock sprint-001/task-005-add-index-migration
+> av-swe block sprints/sprint-001-foundation/task-005-add-index-migration "waiting on staging DB credentials"
+> av-swe unblock sprints/sprint-001-foundation/task-005-add-index-migration
 ```
 
 `block` moves the task to `blocked/` and records why; `unblock` moves it back to `backlog/` (or
@@ -196,9 +197,9 @@ Checks sprint/task ordering, dependency direction, id uniqueness, and spec cover
 > av-swe configure
 ```
 
-Inspects or edits `swe/av-swe.config.json` — plan root, build/typecheck/lint/test commands, skipped
-gates, parallel-sprint execution. Every field defaults sanely; a missing file means "use the
-project's standard commands."
+Inspects or edits `swe/av-swe.config.json` — plan root, sprints directory,
+build/typecheck/lint/test commands, skipped gates, parallel-sprint execution. Every field defaults
+sanely; a missing file means "use the project's standard commands."
 
 ## When to use it
 

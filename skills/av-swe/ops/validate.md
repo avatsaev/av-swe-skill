@@ -5,7 +5,8 @@ Check and report:
   that dependency precedes it).
 - Unique, ordered, well-formed ids; file location matches its `Status:` field.
 - Every spec is covered by ≥ one task; no orphaned tasks (task with no spec or source reference).
-- Sprints leave a buildable state (no unfinished dependency mid-sprint that later tasks need).
+- Sprints under the configured `sprintsDir` (default `<plan-root>/sprints/`) leave a buildable state
+  (no unfinished dependency mid-sprint that later tasks need).
 - Every sprint's `backlog/`, `in_progress/`, `blocked/`, `done/` folder exists and contains a
   `.gitkeep`; recreate any missing folder/`.gitkeep` (trivially fixable, not structural — see
   [../conventions/layout.md](../conventions/layout.md)).

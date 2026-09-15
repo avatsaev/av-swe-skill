@@ -1,7 +1,7 @@
 # Op: `plan` — derive the sprint + task plan
 
-Turn specs (and the existing source) into an ordered plan: `swe/PLAN.md` plus task files. **This op
-only plans; it never implements.**
+Turn specs (and the existing source) into an ordered plan: `swe/PLAN.md` plus task files under
+`swe/sprints/`. **This op only plans; it never implements.**
 
 ## Steps
 
@@ -19,7 +19,7 @@ only plans; it never implements.**
    testable**. Keep sprints small (typically **3–8 tasks**); prefer more, smaller sprints. Sprint 001
    should establish the runnable skeleton (build + test harness green with a trivial test) so every
    later task is validatable.
-4. **Write tasks** — one `backlog/task-NNN-[name].md` per task using
+4. **Write tasks** — one `sprints/sprint-NNN-[name]/backlog/task-NNN-[name].md` per task using
    [../references/task-template.md](../references/task-template.md). Every task MUST be:
    - **Small & atomic** — one cohesive change, verifiable on its own. If it needs more than a
      handful of steps or touches many concerns, split it.
@@ -43,6 +43,6 @@ only plans; it never implements.**
 
 ## Updating an existing plan
 
-Add/append work by writing new tasks into the appropriate sprint's `backlog/` (create a new sprint
-folder if needed, with `.gitkeep` in all four state folders) and updating `PLAN.md`'s index +
-coverage. Never renumber already-`done/` tasks.
+Add/append work by writing new tasks into the appropriate sprint's `backlog/` under `sprints/`
+(create a new sprint folder if needed, with `.gitkeep` in all four state folders) and updating
+`PLAN.md`'s index + coverage. Never renumber already-`done/` tasks.

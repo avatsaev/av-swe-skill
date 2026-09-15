@@ -1,8 +1,9 @@
 # Op: `implement` — execute one sprint
 
-Execute **one** sprint through the state machine. **Input:** a sprint (folder name or number). If
-none given, pick the **lowest-numbered sprint that still has `backlog/` tasks**; if none has backlog
-tasks, the plan is complete — report that and stop.
+Execute **one** sprint through the state machine. **Input:** a sprint number, folder name, or path
+under the configured `sprintsDir` (default `sprints/`). If none given, pick the **lowest-numbered
+sprint under `sprintsDir` that still has `backlog/` tasks**; if none has backlog tasks, the plan is
+complete — report that and stop.
 
 For each task in numeric order:
 

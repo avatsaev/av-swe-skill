@@ -1,4 +1,4 @@
-# Template: <plan-root>/sprint-NNN-<name>/done/task-NNN-[short-name]-summary.md
+# Template: <plan-root>/sprints/sprint-NNN-<name>/done/task-NNN-[short-name]-summary.md
 
 Written when a task is completed and moved to `done/`. Records proof that the task works. The
 "Build & test results" section is the audit trail — paste the actual commands and outputs.
@@ -8,7 +8,7 @@ Written when a task is completed and moved to `done/`. Records proof that the ta
 ```markdown
 # Task NNN — <Title> — Summary
 
-- **Sprint:** sprint-NNN-<name>
+- **Sprint:** sprints/sprint-NNN-<name>
 - **Completed:** <date/time>
 - **Status:** done
 

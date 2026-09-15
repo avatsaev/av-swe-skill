@@ -1,4 +1,4 @@
-# Template: backlog/task-NNN-[short-name].md
+# Template: <plan-root>/sprints/sprint-NNN-[name]/backlog/task-NNN-[short-name].md
 
 Copy this into each task file. Tasks must be small, atomic, and testable. Reference the relevant
 `swe/specs/` documents **and the real source files** they touch. Do not paste full source code —
@@ -9,7 +9,7 @@ short signatures/data shapes are fine to pin a contract.
 ```markdown
 # Task NNN — <Short Title>
 
-- **Sprint:** sprint-NNN-<sprint-name>
+- **Sprint:** sprints/sprint-NNN-<sprint-name>
 - **Status:** backlog            # backlog | in_progress | blocked | done — MUST match the folder the file is in
 - **Type:** feature | bugfix | refactor | chore | test | docs
 - **Area:** <module / domain / subsystem>

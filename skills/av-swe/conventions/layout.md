@@ -6,17 +6,18 @@ Everything is rooted at the **plan root**. Default `<project-root>/swe/`; overri
 ```
 <project-root>/swe/
 ├── PLAN.md                        # single source of truth: strategy + sprint/task index + coverage + open questions
-├── av-swe.config.json             # optional project conventions (planRoot, build/test/lint gates, notes dir)
+├── av-swe.config.json             # optional project conventions (planRoot, sprintsDir, gates, notes dir)
 ├── specs/                         # what & how — produced by `scope` or written by hand
 │   ├── overview.md                # whole-project / whole-effort spec + index of sub-specs
 │   ├── features/<name>.md         # one per user/API-facing capability
 │   └── architecture/<concern>.md  # one per cross-cutting concern (persistence, auth, transport, …)
 ├── notes/                         # optional: design decisions / ADRs, meeting notes, research
-└── sprint-NNN-[kebab-name]/
-    ├── backlog/     task-NNN-[name].md   # not started
-    ├── in_progress/                      # currently being implemented (at most a few)
-    ├── blocked/                           # waiting on something; kept for visibility
-    └── done/       task-NNN + task-NNN-[name]-summary.md
+├── sprints/                      # sprint folders live here by default
+│   └── sprint-NNN-[kebab-name]/
+│       ├── backlog/     task-NNN-[name].md   # not started
+│       ├── in_progress/                      # currently being implemented (at most a few)
+│       ├── blocked/                           # waiting on something; kept for visibility
+│       └── done/       task-NNN + task-NNN-[name]-summary.md
 ```
 
 Each of `backlog/`, `in_progress/`, `blocked/`, `done/` contains a `.gitkeep` file, created with the
@@ -31,8 +32,9 @@ the plan derives from; treat them as consultable but keep task files as the exec
 
 ## Naming rules (the plan database schema)
 
-- Sprint folders: `sprint-NNN-[short-kebab-name]`, zero-padded to 3 digits, numbered in
-  **implementation order** (sprint-001 is built first).
+- Sprint folders live under `<plan-root>/sprints/` by default. Each sprint folder is named
+  `sprint-NNN-[short-kebab-name]`, zero-padded to 3 digits, numbered in **implementation order**
+  (sprint-001 is built first).
 - Task files: `task-NNN-[short-kebab-name].md`, zero-padded to 3 digits. **Numbering restarts at
   001 within each sprint**; numeric order = execution order within the sprint.
 - States are **mirrored by the physical folder the file lives in** — never trust the `Status:` field

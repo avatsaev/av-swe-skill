@@ -19,17 +19,17 @@ hardening; note why this order.)
 ## Sprint overview
 | # | Sprint | Goal | Tasks |
 |---|--------|------|-------|
-| 001 | `sprint-001-<name>` | (milestone outcome) | N |
-| 002 | `sprint-002-<name>` | | |
+| 001 | `sprints/sprint-001-<name>` | (milestone outcome) | N |
+| 002 | `sprints/sprint-002-<name>` | | |
 
 ## Task index
-### sprint-001-<name>
+### sprints/sprint-001-<name>
 | Task | Title | Type | Area | Depends on | Covers (specs + source) |
 |------|-------|------|------|-----------|------------------------|
 | task-001 | | | | none | specs/features/...md · src/... |
 | task-002 | | | | task-001 | specs/architecture/...md |
 
-### sprint-002-<name>
+### sprints/sprint-002-<name>
 | Task | Title | Type | Area | Depends on | Covers (specs + source) |
 |------|-------|------|------|-----------|------------------------|
 | ... | | | | | |
