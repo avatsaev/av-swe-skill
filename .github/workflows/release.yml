@@ -51,8 +51,19 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      # `npm publish` can return before the registry serves the new version (npm: "may take a few
+      # minutes to become available"), and `npm view` does not retry a 404 — so poll explicitly.
       - name: Verify on registry
         if: steps.check.outputs.published == 'false'
         run: |
-          npm view "${{ steps.check.outputs.name }}@${{ steps.check.outputs.version }}" version \
-            --prefer-online --fetch-retries 5 --fetch-retry-mintimeout 3000
+          SPEC="${{ steps.check.outputs.name }}@${{ steps.check.outputs.version }}"
+          for i in $(seq 1 24); do
+            if npm view "$SPEC" version --prefer-online >/dev/null 2>&1; then
+              echo "$SPEC is live on the registry"
+              exit 0
+            fi
+            echo "attempt $i/24: $SPEC not visible yet, retrying in 10s"
+            sleep 10
+          done
+          echo "::error::$SPEC was published but is still not visible after 4 minutes"
+          exit 1
