@@ -4,7 +4,9 @@ Produce spec documents under `swe/specs/`. Use this when the effort needs its re
 architecture written down **before** planning. Works whether you are documenting:
 
 - an **existing** codebase (to plan changes/refactors around it), or
-- a **greenfield** effort (turn requirements/ideas into a buildable spec).
+- a **greenfield** effort (turn requirements/ideas into a buildable spec), or
+- a **grilled feature** (a `Status: grilled` brief under `<grillsDir>/` produced by
+  [grill.md](grill.md) — the brief's decisions are the requirements; do not re-ask them).
 
 ## Discipline
 
@@ -19,7 +21,11 @@ Describe **behavior, contracts, data shapes, algorithms, and intent** — not pa
 
 1. **Recon** — read manifests, entry points, run scripts, directory map, dependencies, data model,
    and enumerate the main features and architectural concerns. Read enough to understand; do not
-   transcribe.
+   transcribe. Then read every `<grillsDir>/*.md`: a `Status: grilled` brief is **primary
+   input** — its *Handoff to scope* table names the spec files to produce and which brief sections
+   feed each; carry its decisions, edge cases, and acceptance criteria into those specs and its
+   open `TODO(verify)` items into the spec's own `TODO(verify)` list. A `Status: grilling` brief
+   is unfinished: do not spec from it; tell the user to finish `av-swe grill <name>` first.
 2. **Write `overview.md`** (see
    [../references/spec-overview-template.md](../references/spec-overview-template.md)) — purpose, tech
    stack, high-level architecture (ASCII diagram), module/directory map, data model overview,

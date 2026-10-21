@@ -1,6 +1,6 @@
 ---
 name: av-swe
-description: "Manage a large-scale software engineering project as a versioned, ordered, dependency-aware task plan, executed one sprint at a time through a backlog -> in_progress -> done state machine, with an auditable trail and PLAN.md as the single source of truth. Generalizes the clean-room scope -> plan -> implement pipeline for ordinary (non-clean-room) development: the real source is present and tasks reference it, not just specs. Ops: scope (capture what to build into swe/specs/), plan (derive sprints+tasks), implement (execute one sprint with a hard build+test definition of done), status/validate (plan health), block/unblock, configure. Use when the user wants to plan a large project, break requirements into sprints/tasks, run a sprint, or inspect plan progress."
+description: "Manage a large-scale software engineering project as a versioned, ordered, dependency-aware task plan, executed one sprint at a time through a backlog -> in_progress -> done state machine, with an auditable trail and PLAN.md as the single source of truth. Generalizes the clean-room scope -> plan -> implement pipeline for ordinary (non-clean-room) development: the real source is present and tasks reference it, not just specs. Ops: grill (interrogate a rough feature idea back-and-forth into a decided brief — edge cases, integration points, non-goals — before scoping), scope (capture what to build into swe/specs/), plan (derive sprints+tasks), implement (execute one sprint with a hard build+test definition of done), status/validate (plan health), block/unblock, configure. Use when the user wants to flesh out a rough feature idea, plan a large project, break requirements into sprints/tasks, run a sprint, or inspect plan progress."
 ---
 
 # AV-SWE — plan-driven software engineering at scale
@@ -11,7 +11,7 @@ plan**, and execute it reliably. Built by generalizing the clean-room
 (no clean-room blinders), plus explicit long-lived project-management operations for driving a big
 project over many sessions.
 
-The whole system lives under a **plan root** (default `<project-root>/swe/`) and is driven by seven
+The whole system lives under a **plan root** (default `<project-root>/swe/`) and is driven by eight
 operations (`block`/`unblock` are two directions of one mechanism). Nothing here is a rigid process
 for its own sake — the point is that a big project stays **plannable, trackable, and consistently
 deliverable** without the plan rotting.
@@ -22,6 +22,8 @@ linked file for the op you're about to run — do not rely on this page alone.
 
 ## When to use
 
+- The user has a rough feature idea and wants to pin down what it actually does, what it touches,
+  and what goes wrong before anything is specced or planned.
 - The user wants to plan a large project, feature set, migration, or refactor.
 - The user wants to break a large body of work into sprints and small atomic tasks.
 - The user wants to execute a planned chunk of work with confidence it actually builds and verifies.
@@ -32,6 +34,7 @@ linked file for the op you're about to run — do not rely on this page alone.
 
 | Op | Effect | Produces / mutates | Full procedure |
 |----|--------|--------------------|-----------------|
+| `av-swe grill` | Interrogate a rough feature idea into a decided brief (goals, edge cases, integrations) | `swe/grills/<name>.md` | [ops/grill.md](ops/grill.md) |
 | `av-swe scope` | Capture requirements and current architecture into spec docs | `swe/specs/*.md` | [ops/scope.md](ops/scope.md) |
 | `av-swe plan` | Derive an ordered sprint + task plan from specs/source | `swe/PLAN.md`, `swe/sprints/sprint-NNN-*/` | [ops/plan.md](ops/plan.md) |
 | `av-swe implement` | Execute one sprint through the state machine, gated on build+test | task moves + `*-summary.md` | [ops/implement.md](ops/implement.md) |
@@ -90,11 +93,13 @@ Schema, defaults, and project-specific escape hatches: [conventions/config.md](c
 - [references/summary-template.md](references/summary-template.md) — the per-task audit trail.
 - [references/spec-overview-template.md](references/spec-overview-template.md) — whole-effort spec.
 - [references/spec-sub-template.md](references/spec-sub-template.md) — feature/architecture spec.
+- [references/grill-brief-template.md](references/grill-brief-template.md) — the grill decision log + feature definition.
 
 ## Bootstrap checklist (first use on a project)
 
 1. `av-swe configure` — optional; set test/build gates if the default guesses are wrong.
-2. `av-swe scope` — unless requirements are already written down.
-3. `av-swe plan` — derive `swe/PLAN.md` + `sprints/sprint-001/…` task files.
-4. `av-swe implement` — run sprints in order.
-5. `av-swe status` — at any point to see where the project stands.
+2. `av-swe grill <idea>` — when a feature is still a rough idea; produces a grilled brief for `scope`.
+3. `av-swe scope` — unless requirements are already written down.
+4. `av-swe plan` — derive `swe/PLAN.md` + `sprints/sprint-001/…` task files.
+5. `av-swe implement` — run sprints in order.
+6. `av-swe status` — at any point to see where the project stands.

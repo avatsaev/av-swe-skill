@@ -10,7 +10,8 @@ every task is gated on your project's actual build/typecheck/lint/test commands 
 
 ```mermaid
 flowchart LR
-    A["av-swe scope"] -->|"swe/specs/*.md"| B["av-swe plan"]
+    G["av-swe grill"] -->|"swe/grills/*.md"| A["av-swe scope"]
+    A -->|"swe/specs/*.md"| B["av-swe plan"]
     B -->|"PLAN.md + sprints/sprint-NNN/"| C["av-swe implement"]
     C -->|"task done"| C
     C --> D["av-swe status / validate"]
@@ -47,10 +48,11 @@ npx skillpm install av-swe
 
 ## What it does
 
-Seven operations, driven from a plan root (default `<project-root>/swe/`):
+Eight operations, driven from a plan root (default `<project-root>/swe/`):
 
 | Op | Effect |
 |----|--------|
+| `grill` | Interrogate a rough feature idea back-and-forth into a decided brief before scoping |
 | `scope` | Capture requirements and current architecture into spec docs |
 | `plan` | Derive an ordered sprint + task plan from specs/source |
 | `implement` | Execute one sprint through the state machine, gated on build + test |
@@ -82,7 +84,8 @@ exactly what happened on every finished task (`sprints/*/done/*-summary.md`).
 
 ```mermaid
 flowchart LR
-    S["swe/specs/*.md<br/><i>what & why</i>"] --> P["PLAN.md<br/><i>order, deps, coverage,<br/>Version + Updated</i>"]
+    G["swe/grills/*.md<br/><i>decisions, edge cases,<br/>integration points</i>"] --> S["swe/specs/*.md<br/><i>what & why</i>"]
+    S --> P["PLAN.md<br/><i>order, deps, coverage,<br/>Version + Updated</i>"]
     P --> T["sprints/sprint-NNN/backlog/task-NNN-*.md<br/><i>scope, depends-on,<br/>verification plan</i>"]
     T --> SRC["source + tests<br/><i>the actual change</i>"]
     SRC --> SUM["sprints/*/done/task-NNN-summary.md<br/><i>files changed, spec mapping,<br/>real build/test output, timestamp</i>"]
@@ -115,13 +118,35 @@ Once installed, the skill activates automatically when your prompt matches its d
 a large project, breaking work into sprints, running a sprint, checking status). You can also invoke
 an op directly by name — `av-swe <op> [args]`.
 
+### Grill a rough idea
+
+```
+> av-swe grill "let users export their order history as CSV"
+```
+
+Runs a themed back-and-forth — problem & outcome, scope boundary, happy path, data & state,
+integration points, edge cases & failure modes, non-functional constraints, acceptance — one theme
+per round, 3–5 questions per round, each with the agent's recommendation and concrete options. The
+agent reads the real codebase first so questions and edge cases are grounded in what exists
+("orders are soft-deleted via `deleted_at` — include them in the export?"), and every answer lands
+in the brief the same round, so a grill can be resumed in a later session with
+`av-swe grill <name>`:
+
+```
+swe/grills/
+  export-order-history-csv.md     # Status: grilling → grilled
+```
+
+A `grilled` brief is primary input to `scope`; unknowns become `TODO(verify)` with an owner, never
+silent defaults.
+
 ### Bootstrap a new plan
 
 ```
 > av-swe scope
 ```
 
-Reads the existing codebase (or your stated requirements) and writes spec docs:
+Reads the existing codebase, any grilled briefs, and your stated requirements, and writes spec docs:
 
 ```
 swe/specs/
@@ -203,7 +228,8 @@ sanely; a missing file means "use the project's standard commands."
 
 ## When to use it
 
-Use this skill when you want to plan a large project, feature set, migration, or refactor; break a
+Use this skill when you want to turn a rough feature idea into a decided definition before specing
+it; plan a large project, feature set, migration, or refactor; break a
 large body of work into sprints and small atomic tasks; execute a planned chunk of work with
 confidence it actually builds and verifies; or ask "where are we", "what's next", "is the plan
 consistent".

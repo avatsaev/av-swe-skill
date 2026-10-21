@@ -11,6 +11,7 @@ Everything is rooted at the **plan root**. Default `<project-root>/swe/`; overri
 │   ├── overview.md                # whole-project / whole-effort spec + index of sub-specs
 │   ├── features/<name>.md         # one per user/API-facing capability
 │   └── architecture/<concern>.md  # one per cross-cutting concern (persistence, auth, transport, …)
+├── grills/<kebab-name>.md         # grill briefs — produced by `grill`, consumed by `scope` once `Status: grilled`
 ├── notes/                         # optional: design decisions / ADRs, meeting notes, research
 ├── sprints/                      # sprint folders live here by default
 │   └── sprint-NNN-[kebab-name]/

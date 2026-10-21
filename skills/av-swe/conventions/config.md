@@ -6,6 +6,7 @@ Seen by all ops. All fields optional.
 {
   "planRoot": "swe",                  // plan root relative to project root (default "swe")
   "sprintsDir": "sprints",           // sprint folder directory under plan root (default "sprints")
+  "grillsDir": "grills",             // grill brief directory under plan root (default "grills")
   "build": "npm run build",           // shell command run as the build gate
   "typecheck": "npm run typecheck",   // optional typecheck gate
   "lint": "npm run lint",             // optional lint gate
