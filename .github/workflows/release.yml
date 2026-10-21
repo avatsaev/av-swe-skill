@@ -14,8 +14,11 @@ concurrency:
   group: release-main
   cancel-in-progress: false
 
+# `id-token: write` lets the job mint the GitHub OIDC token npm trusted publishing exchanges for a
+# short-lived publish credential — no long-lived NPM_TOKEN is used or needed.
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   release:
@@ -29,6 +32,10 @@ jobs:
         with:
           node-version: "24"
           registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm >= 11.5.1; don't rely on whatever the runner image bundles.
+      - name: Ensure npm supports trusted publishing
+        run: npm install -g npm@^11.5.1 && npm --version
 
       - name: Check whether this version is already published
         id: check
@@ -63,8 +70,6 @@ jobs:
             fi
             exit "$STATUS"
           fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # `npm publish` can return before the registry serves the new version, and `npm view` does not
       # retry a 404 — so poll explicitly. If it never appears, the publish is most likely staged
