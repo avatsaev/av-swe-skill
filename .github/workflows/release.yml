@@ -1,0 +1,58 @@
+name: Release
+
+# On every push to `main` (including a merged PR), publish the skill to npm — but only if the
+# version in package.json is not already on the registry. Bump `version` in package.json as part of
+# the change you want released; pushes that leave it unchanged are a no-op (docs-only commits, etc.).
+# The skill itself is installed from GitHub by `npx skills add avatsaev/av-swe-skill`, so that path
+# is live as soon as the push lands; this workflow keeps the `av-swe` npm package (skillpm) in step.
+on:
+  push:
+    branches: [main]
+
+# Serialize releases if two pushes land close together.
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: https://registry.npmjs.org
+
+      - name: Check whether this version is already published
+        id: check
+        run: |
+          NAME="$(node -p "require('./package.json').name")"
+          VERSION="$(node -p "require('./package.json').version")"
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+            echo "$NAME@$VERSION is already on npm — nothing to release."
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            echo "$NAME@$VERSION is not on npm — publishing."
+          fi
+
+      - name: Publish to npm
+        if: steps.check.outputs.published == 'false'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Verify on registry
+        if: steps.check.outputs.published == 'false'
+        run: |
+          npm view "${{ steps.check.outputs.name }}@${{ steps.check.outputs.version }}" version \
+            --prefer-online --fetch-retries 5 --fetch-retry-mintimeout 3000
