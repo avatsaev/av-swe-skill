@@ -74,6 +74,86 @@ stateDiagram-v2
     done --> [*]
 ```
 
+## See it work
+
+Each of the four ops that shape a project is drawn as a small machine whose motion *is* the op.
+The animations are plain SVG (no GIF, no script), and follow your light/dark theme.
+
+### `grill` — a card-punch press
+
+A reader scans the code, then a sled feeds the brief card through the punches, one theme per round
+(three to five questions each). Every answer is punched into the card the same round. A blocking
+question stays scored, not punched, until it is resolved. Four gauge pins test the finished card
+(required sections, edge cases, no blockers, your own confirmation) and only then does the barrier
+lift and the card leave marked `grilled`.
+
+<picture>
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="docs/anatomy/svg/grill-dark-still.svg">
+  <source media="(prefers-reduced-motion: reduce)" srcset="docs/anatomy/svg/grill-light-still.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/anatomy/svg/grill-dark.svg">
+  <img alt="A card-punch press: a sled feeds a brief card through five punches, round by round, then four gauge pins test it before a barrier lifts." src="docs/anatomy/svg/grill-light.svg">
+</picture>
+
+### `scope` — a copying pantograph
+
+A stylus follows the outer walls of the real code, and a linked pen draws the same outline at half
+scale onto a spec card. The specs capture each module's contract and none of its source. After each
+card the pen writes one line of the `overview.md` index. Where an edge cannot be read, the pen lifts
+and a `TODO(verify)` flag goes up instead of a guess.
+
+<picture>
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="docs/anatomy/svg/scope-dark-still.svg">
+  <source media="(prefers-reduced-motion: reduce)" srcset="docs/anatomy/svg/scope-light-still.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/anatomy/svg/scope-dark.svg">
+  <img alt="A copying pantograph: a stylus traces code modules and the grilled brief while a pen draws their outlines at half scale onto spec cards." src="docs/anatomy/svg/scope-light.svg">
+</picture>
+
+### `plan` — a pick-and-place gantry
+
+A picker cuts one task tile at a time from the spec it covers and sets it into a sprint tray, foundation
+first, so every task a tile depends on is already in a tray. Each placed tile writes a row of
+`PLAN.md`. The plan is done when every sprint has its four state folders, every spec is covered and
+no task points forward.
+
+<picture>
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="docs/anatomy/svg/plan-dark-still.svg">
+  <source media="(prefers-reduced-motion: reduce)" srcset="docs/anatomy/svg/plan-light-still.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/anatomy/svg/plan-dark.svg">
+  <img alt="A pick-and-place gantry: a picker takes task tiles from spec cards and loads them into three sprint trays in dependency order while PLAN.md fills in." src="docs/anatomy/svg/plan-light.svg">
+</picture>
+
+### `implement` — a rotary index table
+
+One task at a time, lowest number first: claim (its dependencies must already be done), understand,
+implement, then test against the real build, lint, test and acceptance commands. A failing test turns
+the table back to the spindle and the task stays `in_progress`. Only when every gate is green does the
+task move to `done` with its summary. When the backlog is empty the full suite runs once more.
+
+<picture>
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="docs/anatomy/svg/implement-dark-still.svg">
+  <source media="(prefers-reduced-motion: reduce)" srcset="docs/anatomy/svg/implement-light-still.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/anatomy/svg/implement-dark.svg">
+  <img alt="A rotary index table: a task tile is claimed, read, worked and tested at four stations; a failed test sends it back to the spindle, and a green stack light lets it into done." src="docs/anatomy/svg/implement-light.svg">
+</picture>
+
+<details>
+<summary>How the animations are made</summary>
+
+Each op has a script in [`docs/anatomy/`](docs/anatomy) that builds an interactive page with the `anatomy`
+agent skill's isometric kit (hover to scrub, arrow keys to step, space to pause; open the `.html` locally).
+`export-svg.mjs` then steps each page's own timeline in headless Chrome and writes the animated SVGs, so
+the drawing, the counts and the readouts all come from one model.
+
+```bash
+node docs/anatomy/grill.mjs            # also scope.mjs, plan.mjs, implement.mjs -> <op>.html, <op>-light.html
+node docs/anatomy/export-svg.mjs       # -> docs/anatomy/svg/<op>-<dark|light>[-still].svg
+```
+
+It needs a Node with a global `WebSocket` (22+; tested on 24), a Chrome or Chromium (`CHROME_PATH`) and the
+`anatomy` skill (`~/.agents/skills/anatomy`, or set `ANATOMY_DIR`).
+
+</details>
+
 ## The plan is documentation — built for agent handoff
 
 Every artifact av-swe produces is durable, self-describing markdown on disk. That makes the plan
