@@ -76,64 +76,78 @@ stateDiagram-v2
 
 ## See it work
 
-Each of the four ops that shape a project is drawn as a small machine whose motion *is* the op.
-The animations are plain SVG (no GIF, no script), and follow your light/dark theme.
+Animations of the four ops that shape a project, each following the steps the op runs.
+They are plain SVG (no GIF, no script) and follow your light/dark theme.
 
-### `grill` — a card-punch press
+### `grill` — turn a rough idea into a defined feature
 
-A reader scans the code, then a sled feeds the brief card through the punches, one theme per round
-(three to five questions each). Every answer is punched into the card the same round. A blocking
-question stays scored, not punched, until it is resolved. Four gauge pins test the finished card
-(required sections, edge cases, no blockers, your own confirmation) and only then does the barrier
-lift and the card leave marked `grilled`.
+Interrogates a rough feature idea, back and forth with the engineer, into a decided brief that `scope` can turn into a spec without guessing. It asks and records; it never writes specs, plans or source.
+
+1. **Recon first**: reads the parts of the codebase the idea touches before the first question, so questions are grounded in what exists.
+2. **Rounds**: one theme per round (problem and outcome, scope boundary, happy path, data and state, integration points, edge cases and failure modes, non-functional constraints, acceptance), 3–5 questions each. Each question carries the agent's recommendation and the tradeoff, and the agent proposes concrete edge cases rather than asking for them.
+3. **Records every answer in the brief in the same round**, so a grill survives a session boundary and another agent can resume it. An unknown becomes a `TODO(verify)` with an owner, never a made-up default, and a skipped question is logged as deferred.
+4. **Challenges contradictions** with earlier decisions or the codebase instead of accepting them.
+5. **Converges** when the exit criteria hold: required sections filled, every edge-case area covered, no blocking question open, and the engineer has confirmed. Only then is the brief marked `Status: grilled`.
 
 <picture>
   <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="docs/anatomy/svg/grill-dark-still.svg">
   <source media="(prefers-reduced-motion: reduce)" srcset="docs/anatomy/svg/grill-light-still.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/anatomy/svg/grill-dark.svg">
-  <img alt="A card-punch press: a sled feeds a brief card through five punches, round by round, then four gauge pins test it before a barrier lifts." src="docs/anatomy/svg/grill-light.svg">
+  <img alt="Animation of grill: the codebase is read, then eight rounds of questions are answered and recorded in the brief, a contradiction is resolved, four exit checks pass and the brief is marked grilled." src="docs/anatomy/svg/grill-light.svg">
 </picture>
 
-### `scope` — a copying pantograph
+### `scope` — capture what to build
 
-A stylus follows the outer walls of the real code, and a linked pen draws the same outline at half
-scale onto a spec card. The specs capture each module's contract and none of its source. After each
-card the pen writes one line of the `overview.md` index. Where an edge cannot be read, the pen lifts
-and a `TODO(verify)` flag goes up instead of a guess.
+Writes the requirements and architecture down as spec documents under `swe/specs/`, before planning. It works on an existing codebase, a greenfield idea, or a grilled feature brief (whose decisions are used as the requirements, not re-asked).
+
+1. **Recon**: reads manifests, entry points, directory map, dependencies and data model, plus any `Status: grilled` brief. An unfinished brief is not specced from.
+2. **Writes `overview.md`**: purpose, stack, architecture, module map, data model, integrations, how to build, run and test, and an index of every sub-spec.
+3. **Writes sub-specs** (`features/<name>.md`, `architecture/<concern>.md`): purpose, public contract, behavior in pseudocode, error handling, edge cases, dependencies and acceptance criteria that later tasks can test against.
+4. **Cross-links and verifies**: the index lists every file created, and any verbatim source is stripped.
+
+Specs describe behavior and contracts, not pasted source. Anything unclear is marked `TODO(verify)` and collected in `overview.md` instead of guessed.
 
 <picture>
   <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="docs/anatomy/svg/scope-dark-still.svg">
   <source media="(prefers-reduced-motion: reduce)" srcset="docs/anatomy/svg/scope-light-still.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/anatomy/svg/scope-dark.svg">
-  <img alt="A copying pantograph: a stylus traces code modules and the grilled brief while a pen draws their outlines at half scale onto spec cards." src="docs/anatomy/svg/scope-light.svg">
+  <img alt="Animation of scope: three code modules and a grilled brief are read in turn and each becomes a spec, one index line is added to the overview after each, and one unclear edge is flagged TODO(verify)." src="docs/anatomy/svg/scope-light.svg">
 </picture>
 
-### `plan` — a pick-and-place gantry
+### `plan` — derive the sprint and task plan
 
-A picker cuts one task tile at a time from the spec it covers and sets it into a sprint tray, foundation
-first, so every task a tile depends on is already in a tray. Each placed tile writes a row of
-`PLAN.md`. The plan is done when every sprint has its four state folders, every spec is covered and
-no task points forward.
+Turns the specs (and the existing source) into an ordered plan: `swe/PLAN.md` plus one task file per task under `swe/sprints/`. It only plans and never implements.
+
+1. **Reads** `specs/overview.md`, every feature and architecture spec, and enough source to write accurate references, noting each spec's dependencies and acceptance criteria.
+2. **Orders the work bottom-up**: foundation, then cross-cutting architecture, then features in dependency order, then integration and hardening. A task never depends on something not yet built.
+3. **Groups tasks into sprints** of typically 3–8, each leaving the system buildable and testable. Sprint 001 establishes the runnable skeleton, so every later task can be validated.
+4. **Writes the tasks**: each one small and atomic, testable, linked to the exact spec sections and source files it touches, self-contained, and listing its prerequisites by task id.
+5. **Writes `PLAN.md` and verifies it**: every spec is covered by at least one task, no task depends on a later one, every sprint has its four state folders (each with a `.gitkeep`), and ids are unique and ordered.
 
 <picture>
   <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="docs/anatomy/svg/plan-dark-still.svg">
   <source media="(prefers-reduced-motion: reduce)" srcset="docs/anatomy/svg/plan-light-still.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/anatomy/svg/plan-dark.svg">
-  <img alt="A pick-and-place gantry: a picker takes task tiles from spec cards and loads them into three sprint trays in dependency order while PLAN.md fills in." src="docs/anatomy/svg/plan-light.svg">
+  <img alt="Animation of plan: nine tasks are cut from five specs and placed into three sprints in dependency order, each adding a row to PLAN.md, then the plan is verified." src="docs/anatomy/svg/plan-light.svg">
 </picture>
 
-### `implement` — a rotary index table
+### `implement` — run a sprint
 
-One task at a time, lowest number first: claim (its dependencies must already be done), understand,
-implement, then test against the real build, lint, test and acceptance commands. A failing test turns
-the table back to the spindle and the task stays `in_progress`. Only when every gate is green does the
-task move to `done` with its summary. When the backlog is empty the full suite runs once more.
+Executes one sprint, one task at a time in numeric order. For each task it:
+
+1. **Claims** it: confirms every task it depends on is already in `done/`, then moves it from `backlog/` to `in_progress/`.
+2. **Reads** the task, the spec sections it references and the source files it touches.
+3. **Implements** it in the real source, scoped to that task only.
+4. **Builds and tests**: the task is done only when the build, the configured typecheck/lint gates, the tests and every acceptance criterion pass. The agent runs the actual commands and records the results.
+5. **Completes** it: writes a summary (what was built, files changed, commands and results) and moves the task to `done/`.
+
+If a task can't go green after reasonable effort it stays in `in_progress/` with a `## Blocker` note and the sprint stops, because later tasks may depend on it. When the backlog is empty, the full build and test suite runs once more before the next sprint is reported.
 
 <picture>
   <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="docs/anatomy/svg/implement-dark-still.svg">
   <source media="(prefers-reduced-motion: reduce)" srcset="docs/anatomy/svg/implement-light-still.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/anatomy/svg/implement-dark.svg">
-  <img alt="A rotary index table: a task tile is claimed, read, worked and tested at four stations; a failed test sends it back to the spindle, and a green stack light lets it into done." src="docs/anatomy/svg/implement-light.svg">
+  <img alt="Animation of implement: three tasks go through claim, understand, implement and test in turn. One fails its tests and is fixed before all four checks pass and it moves to done with a summary." src="docs/anatomy/svg/implement-light.svg">
 </picture>
 
 <details>
