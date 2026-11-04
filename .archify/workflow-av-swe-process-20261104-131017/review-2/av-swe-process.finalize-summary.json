@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "workflow",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/candidate.json",
+    "sha256": "8782096e8413d63053169d139373902644aec2dd0fd0648c764ae25af2dd3110",
+    "bytes": 11109
+  },
+  "artifact": {
+    "path": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+    "sha256": "ef86da754f86fc8596d29ad9f080dfc0c681c82ddcce53a7df9b0d9df81901bd",
+    "bytes": 867857
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/review-2/av-swe-process.finalize.json",
+    "summaryReceipt": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/review-2/av-swe-process.finalize-summary.json",
+    "browserCheckReceipt": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/review-2/av-swe-process.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-04T13:11:05.542Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 1706,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

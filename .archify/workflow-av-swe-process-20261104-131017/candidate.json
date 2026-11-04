@@ -1,0 +1,472 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "AV-SWE · From rough idea to verified delivery",
+    "locale": "en",
+    "output": ".archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/avatsaev/av-swe-skill.git",
+      "revision": "c1a38e575bfdef708830edfed065fbb508a5c6c2"
+    }
+  },
+  "lanes": [
+    {
+      "id": "define",
+      "label": "01 · Grill → scope → plan"
+    },
+    {
+      "id": "execute",
+      "label": "02 · Implement one sprint"
+    },
+    {
+      "id": "recover",
+      "label": "03 · Stop & recover",
+      "variant": "exception"
+    },
+    {
+      "id": "deliver",
+      "label": "04 · Verify & hand off"
+    }
+  ],
+  "mainPath": [
+    "recon",
+    "rounds",
+    "confirmed",
+    "scope",
+    "plan",
+    "validate"
+  ],
+  "nodes": [
+    {
+      "id": "recon",
+      "lane": "define",
+      "col": 0,
+      "type": "external",
+      "label": "Rough idea + recon",
+      "sublabel": "Read touched code first",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/grill.md",
+          "line": 24,
+          "end_line": 29
+        }
+      ]
+    },
+    {
+      "id": "rounds",
+      "lane": "define",
+      "col": 1,
+      "type": "frontend",
+      "label": "Grill rounds",
+      "sublabel": "Ask · decide · record",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/grill.md",
+          "line": 48,
+          "end_line": 85
+        }
+      ]
+    },
+    {
+      "id": "confirmed",
+      "lane": "define",
+      "col": 2,
+      "type": "security",
+      "label": "Engineer confirms",
+      "sublabel": "Brief: Status grilled",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/grill.md",
+          "line": 96,
+          "end_line": 116
+        }
+      ],
+      "icon": "decision"
+    },
+    {
+      "id": "scope",
+      "lane": "define",
+      "col": 3,
+      "type": "database",
+      "label": "Scope",
+      "sublabel": "swe/specs/*.md",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/scope.md",
+          "line": 22,
+          "end_line": 41
+        }
+      ]
+    },
+    {
+      "id": "plan",
+      "lane": "define",
+      "col": 4,
+      "type": "database",
+      "label": "Plan",
+      "sublabel": "PLAN.md + sprint tasks",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/plan.md",
+          "line": 8,
+          "end_line": 40
+        }
+      ]
+    },
+    {
+      "id": "validate",
+      "lane": "define",
+      "col": 5,
+      "type": "security",
+      "label": "Validate plan",
+      "sublabel": "Order · deps · coverage",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/validate.md",
+          "line": 3,
+          "end_line": 14
+        }
+      ]
+    },
+    {
+      "id": "backlog",
+      "lane": "execute",
+      "col": 5,
+      "type": "database",
+      "label": "backlog/",
+      "sublabel": "Lowest task; deps done?",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/implement.md",
+          "line": 10,
+          "end_line": 15
+        }
+      ]
+    },
+    {
+      "id": "active",
+      "lane": "execute",
+      "col": 4,
+      "type": "backend",
+      "label": "in_progress/",
+      "sublabel": "Claim + read task/specs",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/implement.md",
+          "line": 10,
+          "end_line": 20
+        }
+      ]
+    },
+    {
+      "id": "code",
+      "lane": "execute",
+      "col": 3,
+      "type": "backend",
+      "label": "Implement task",
+      "sublabel": "Real source; task only",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/implement.md",
+          "line": 22,
+          "end_line": 25
+        }
+      ]
+    },
+    {
+      "id": "gates",
+      "lane": "execute",
+      "col": 2,
+      "type": "security",
+      "label": "Definition of done",
+      "sublabel": "Build · tests · acceptance",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/implement.md",
+          "line": 27,
+          "end_line": 42
+        }
+      ],
+      "icon": "decision"
+    },
+    {
+      "id": "done",
+      "lane": "execute",
+      "col": 1,
+      "type": "database",
+      "label": "done/ + summary",
+      "sublabel": "Record proof; move task",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/implement.md",
+          "line": 44,
+          "end_line": 50
+        }
+      ]
+    },
+    {
+      "id": "failed",
+      "lane": "recover",
+      "col": 2,
+      "type": "security",
+      "label": "Still in_progress/",
+      "sublabel": "Add Blocker; stop sprint",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/implement.md",
+          "line": 39,
+          "end_line": 42
+        }
+      ],
+      "icon": "failure"
+    },
+    {
+      "id": "blocked",
+      "lane": "recover",
+      "col": 4,
+      "type": "database",
+      "label": "blocked/",
+      "sublabel": "Explicit block + reason",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/block-unblock.md",
+          "line": 3,
+          "end_line": 8
+        }
+      ],
+      "icon": "waiting"
+    },
+    {
+      "id": "suite",
+      "lane": "deliver",
+      "col": 1,
+      "type": "security",
+      "label": "Sprint verification",
+      "sublabel": "Full build + test suite",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/implement.md",
+          "line": 60,
+          "end_line": 64
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "lane": "deliver",
+      "col": 3,
+      "type": "frontend",
+      "label": "Delivery / handoff",
+      "sublabel": "Results · blockers · next",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/implement.md",
+          "line": 60,
+          "end_line": 64
+        }
+      ]
+    },
+    {
+      "id": "complete",
+      "lane": "deliver",
+      "col": 5,
+      "type": "external",
+      "label": "Plan complete",
+      "sublabel": "No further backlog",
+      "sources": [
+        {
+          "path": "skills/av-swe/ops/status.md",
+          "line": 3,
+          "end_line": 8
+        }
+      ],
+      "icon": "success"
+    }
+  ],
+  "edges": [
+    {
+      "id": "recon-rounds",
+      "from": "recon",
+      "to": "rounds",
+      "role": "main"
+    },
+    {
+      "id": "rounds-confirmed",
+      "from": "rounds",
+      "to": "confirmed",
+      "label": "Converged",
+      "role": "main"
+    },
+    {
+      "id": "confirmed-rounds",
+      "from": "confirmed",
+      "to": "rounds",
+      "label": "Not yet",
+      "role": "return"
+    },
+    {
+      "id": "confirmed-scope",
+      "from": "confirmed",
+      "to": "scope",
+      "label": "Confirmed",
+      "role": "main"
+    },
+    {
+      "id": "scope-plan",
+      "from": "scope",
+      "to": "plan",
+      "label": "Specs",
+      "role": "main"
+    },
+    {
+      "id": "plan-validate",
+      "from": "plan",
+      "to": "validate",
+      "role": "main"
+    },
+    {
+      "id": "validate-backlog",
+      "from": "validate",
+      "to": "backlog",
+      "label": "Plan ready",
+      "role": "main"
+    },
+    {
+      "id": "backlog-active",
+      "from": "backlog",
+      "to": "active",
+      "label": "Claim",
+      "role": "main"
+    },
+    {
+      "id": "active-code",
+      "from": "active",
+      "to": "code",
+      "role": "main"
+    },
+    {
+      "id": "code-gates",
+      "from": "code",
+      "to": "gates",
+      "role": "main"
+    },
+    {
+      "id": "gates-done",
+      "from": "gates",
+      "to": "done",
+      "label": "All pass",
+      "role": "main"
+    },
+    {
+      "id": "done-backlog",
+      "from": "done",
+      "to": "backlog",
+      "label": "Next task",
+      "role": "return"
+    },
+    {
+      "id": "gates-failed",
+      "from": "gates",
+      "to": "failed",
+      "label": "Cannot go green",
+      "role": "error"
+    },
+    {
+      "id": "failed-code",
+      "from": "failed",
+      "to": "code",
+      "label": "Resume & fix",
+      "role": "return"
+    },
+    {
+      "id": "active-blocked",
+      "from": "active",
+      "to": "blocked",
+      "label": "block",
+      "role": "branch"
+    },
+    {
+      "id": "blocked-backlog",
+      "from": "blocked",
+      "to": "backlog",
+      "label": "unblock",
+      "role": "return"
+    },
+    {
+      "id": "blocked-active",
+      "from": "blocked",
+      "to": "active",
+      "label": "Resume now",
+      "role": "return"
+    },
+    {
+      "id": "done-suite",
+      "from": "done",
+      "to": "suite",
+      "label": "Backlog empty",
+      "role": "main"
+    },
+    {
+      "id": "suite-report",
+      "from": "suite",
+      "to": "report",
+      "label": "Sprint green",
+      "role": "main"
+    },
+    {
+      "id": "report-backlog",
+      "from": "report",
+      "to": "backlog",
+      "label": "Next sprint: new run",
+      "role": "return",
+      "route": "auto"
+    },
+    {
+      "id": "report-complete",
+      "from": "report",
+      "to": "complete",
+      "label": "No backlog",
+      "role": "main"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Grill decisions survive sessions",
+      "items": [
+        "Themes: outcome, scope boundary, happy path, data/state, integrations, edge cases, constraints, acceptance.",
+        "Each round: 3–5 questions with recommendations; record answers immediately in swe/grills/<name>.md.",
+        "Resolve contradictions; cover all edge-case areas; no blocking unknowns; engineer confirms before scope."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Planning is executable documentation",
+      "items": [
+        "Scope captures behavior/contracts, not source bodies. Grilling can be skipped when requirements are already decided.",
+        "Plan foundation → cross-cutting architecture → features → integration/hardening; small atomic tasks in ordered sprints.",
+        "PLAN.md stays in sync. Physical folders are task state; keep all four state folders and .gitkeep files."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Recovery never bypasses verification",
+      "items": [
+        "Failed gates: fix and rerun while working. If not green after reasonable effort, retain in_progress/ with a Blocker and stop.",
+        "Explicit block is a separate folder transition. Unblock to backlog/, or resume in_progress/ only when work is committed and resumes immediately.",
+        "Unmet dependencies stop execution; never skip ahead. Optional configured parallelism only for independent tasks."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Delivery is evidence, not an automatic deployment",
+      "items": [
+        "Only implement changes source. Each done summary includes timestamp, changed files, spec mapping, actual command outputs and acceptance proof.",
+        "At sprint end rerun the full build/test suite; report tasks, tests, build status, open TODO(verify)/blockers and next sprint.",
+        "status reports folder facts at any time; validate checks integrity. configure supplies optional project gates; no release/deploy operation is defined."
+      ]
+    }
+  ]
+}

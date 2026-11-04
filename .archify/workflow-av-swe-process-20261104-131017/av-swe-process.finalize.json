@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "skipped",
+  "type": "workflow",
+  "quality": "showcase",
+  "startedAt": "2026-11-04T13:13:13.253Z",
+  "specification": {
+    "path": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/candidate.json",
+    "sha256": "8782096e8413d63053169d139373902644aec2dd0fd0648c764ae25af2dd3110",
+    "bytes": 11109
+  },
+  "artifact": {
+    "path": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+    "sha256": "ef86da754f86fc8596d29ad9f080dfc0c681c82ddcce53a7df9b0d9df81901bd",
+    "bytes": 867857
+  },
+  "stages": {
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "/home/avatsaev/.nvm/versions/node/v24.22.2/bin/node",
+        "/home/avatsaev/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "workflow",
+        "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/candidate.json",
+        "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "/home/avatsaev/DEV/avatsaev/av-swe-skill",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "8782096e8413d63053169d139373902644aec2dd0fd0648c764ae25af2dd3110",
+          "bytes": 11109
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 376,
+      "command": [
+        "/home/avatsaev/.nvm/versions/node/v24.22.2/bin/node",
+        "/home/avatsaev/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "workflow",
+        "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/candidate.json",
+        "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "/home/avatsaev/DEV/avatsaev/av-swe-skill",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "12629507-1f97-4ea2-8afc-9d943d5b82ec",
+        "ok": true,
+        "command": "deliver",
+        "type": "workflow",
+        "input": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/candidate.json",
+        "output": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+        "specification": {
+          "sha256": "8782096e8413d63053169d139373902644aec2dd0fd0648c764ae25af2dd3110",
+          "bytes": 11109
+        },
+        "artifact": {
+          "sha256": "ef86da754f86fc8596d29ad9f080dfc0c681c82ddcce53a7df9b0d9df81901bd",
+          "bytes": 867857
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "evidence": {
+          "verified": true,
+          "repository": "https://github.com/avatsaev/av-swe-skill",
+          "revision": "c1a38e575bfdef708830edfed065fbb508a5c6c2",
+          "references": 16
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    },
+    "check": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 94,
+      "command": [
+        "/home/avatsaev/.nvm/versions/node/v24.22.2/bin/node",
+        "/home/avatsaev/.agents/skills/archify/bin/archify.mjs",
+        "check",
+        "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+        "--require-provenance"
+      ],
+      "receipt": {
+        "ok": true,
+        "file": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+        "artifact": {
+          "sha256": "ef86da754f86fc8596d29ad9f080dfc0c681c82ddcce53a7df9b0d9df81901bd",
+          "bytes": 867857
+        },
+        "checks": [
+          {
+            "name": "single_svg",
+            "ok": true,
+            "details": [
+              "found 1 <svg> block(s)"
+            ]
+          },
+          {
+            "name": "finite_svg",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "orthogonal_arrows",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "label_route_clearance",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_crossings",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_corridors",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "container_border_runs",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "route_rhythm",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "legend_clearance",
+            "ok": true,
+            "details": []
+          }
+        ],
+        "composition": {
+          "schemaVersion": 1,
+          "profile": "showcase",
+          "status": "pass",
+          "summary": {
+            "errors": 0,
+            "warnings": 0
+          },
+          "metrics": {
+            "properCrossings": 0,
+            "resolvedCrossovers": 0,
+            "ambiguousCorridors": 0,
+            "arrowheadCollisions": 0,
+            "containerBorderRuns": 0,
+            "labelRouteClearanceIssues": 0,
+            "labelCanvasOverflowIssues": 0,
+            "minLabelRouteClearance": 14.8,
+            "desktopReadabilityIssues": 0,
+            "viewportHeightIssues": 0,
+            "minProjectedNodeTextPx": 6.180379746835443,
+            "maxBends": 0,
+            "routesOverSuggestedBends": 0,
+            "maxStretch": 1,
+            "routesOverSuggestedStretch": 0,
+            "minSegmentPx": 8,
+            "minInteriorSegmentPx": null,
+            "shortSegmentCount": 8,
+            "shortEndpointSegmentCount": 8,
+            "shortInteriorSegmentCount": 0,
+            "microSegmentCount": 0
+          },
+          "suggestedLimits": {
+            "bendsPerRelationship": 2,
+            "stretch": 1.35,
+            "segmentPx": 16,
+            "microSegmentPx": 8
+          },
+          "routeReview": {
+            "crossings": [],
+            "detours": []
+          },
+          "leadingSpace": {
+            "measured": false,
+            "reviewSuggested": false
+          },
+          "desktopReadability": {
+            "budgetBasis": "legacy-930",
+            "readerContract": "declared-wide-v1",
+            "availableDiagramWidth": 930,
+            "actualBudgetPx": 930,
+            "limit": "legacy",
+            "requestedTargetPx": null,
+            "requestedTargetMet": null,
+            "hardFloorPx": 6,
+            "hardFloorMet": true,
+            "minimumOwner": {
+              "kind": "node",
+              "id": "plan"
+            },
+            "minimumSourceTextPx": 6.3,
+            "minimumProjectedTextPx": 6.180379746835443,
+            "semanticTextCount": 49
+          },
+          "issues": []
+        },
+        "provenance": "current",
+        "deliveryReceiptId": "12629507-1f97-4ea2-8afc-9d943d5b82ec"
+      }
+    },
+    "browser-check": {
+      "status": "skipped",
+      "exitCode": 2,
+      "durationMs": 11,
+      "command": [
+        "/home/avatsaev/.nvm/versions/node/v24.22.2/bin/node",
+        "/home/avatsaev/.agents/skills/archify/bin/archify.mjs",
+        "browser-check",
+        "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+        "--json",
+        "--require-provenance"
+      ],
+      "execution": "in-process",
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "browser-check",
+        "evidenceKind": "automated-browser",
+        "status": "skipped",
+        "visualReview": "not-requested",
+        "provenance": "current",
+        "deliveryReceiptId": "12629507-1f97-4ea2-8afc-9d943d5b82ec",
+        "artifact": {
+          "path": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+          "sha256": "ef86da754f86fc8596d29ad9f080dfc0c681c82ddcce53a7df9b0d9df81901bd",
+          "bytes": 867857
+        },
+        "state": {
+          "detail": "read",
+          "motion": "still"
+        },
+        "chrome": {
+          "status": "unavailable",
+          "executable": null
+        },
+        "diagnostics": [
+          {
+            "code": "viewer/chrome-unavailable",
+            "severity": "warning",
+            "message": "No supported browser found. Install Chrome/Chromium (or Microsoft Edge), or set ARCHIFY_CHROME to its executable path.",
+            "subject": {
+              "artifact": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html"
+            },
+            "evidence": {
+              "executable": null
+            },
+            "supportedFixes": [
+              "set ARCHIFY_CHROME to a Chrome/Chromium executable (or Microsoft Edge) and rerun browser-check"
+            ]
+          }
+        ],
+        "containment": {
+          "status": "skipped",
+          "policy": "fit-or-reader-declared-readable-vertical-scroll",
+          "viewports": []
+        },
+        "themeStates": {
+          "status": "skipped",
+          "viewports": []
+        },
+        "readability": {
+          "status": "skipped",
+          "minimumProjectedNodeTextPx": 6,
+          "viewports": []
+        },
+        "viewerChrome": {
+          "status": "skipped",
+          "viewports": []
+        },
+        "captures": {
+          "status": "not-requested",
+          "screenshots": [],
+          "contactSheet": null
+        },
+        "sidecars": {
+          "receipt": "av-swe-process.browser-check.json",
+          "files": []
+        },
+        "error": "No supported browser found. Install Chrome/Chromium (or Microsoft Edge), or set ARCHIFY_CHROME to its executable path."
+      }
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "viewer/chrome-unavailable",
+      "severity": "warning",
+      "message": "No supported browser found. Install Chrome/Chromium (or Microsoft Edge), or set ARCHIFY_CHROME to its executable path.",
+      "subject": {
+        "artifact": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html"
+      },
+      "evidence": {
+        "executable": null
+      },
+      "supportedFixes": [
+        "set ARCHIFY_CHROME to a Chrome/Chromium executable (or Microsoft Edge) and rerun browser-check"
+      ]
+    }
+  ],
+  "evidence": {
+    "receipt": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.finalize.json",
+    "summaryReceipt": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.finalize-summary.json",
+    "browserCheckReceipt": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "browser-check",
+  "finishedAt": "2026-11-04T13:13:13.841Z",
+  "durationMs": 588,
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-04T13:11:05.542Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  }
+}

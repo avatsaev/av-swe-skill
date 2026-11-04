@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "9a6fb56a-acd5-46ae-8e39-5ce004e73b3e",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/candidate.json",
+  "output": "/home/avatsaev/DEV/avatsaev/av-swe-skill/.archify/workflow-av-swe-process-20261104-131017/av-swe-process.html",
+  "specification": {
+    "sha256": "8782096e8413d63053169d139373902644aec2dd0fd0648c764ae25af2dd3110",
+    "bytes": 11109
+  },
+  "artifact": {
+    "sha256": "ef86da754f86fc8596d29ad9f080dfc0c681c82ddcce53a7df9b0d9df81901bd",
+    "bytes": 867857
+  }
+}

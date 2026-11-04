@@ -8,18 +8,7 @@ as the single source of truth.
 The real source code is always present and in scope: specs and tasks reference it directly, and
 every task is gated on your project's actual build/typecheck/lint/test commands — never a guess.
 
-```mermaid
-flowchart LR
-    G["av-swe grill"] -->|"swe/grills/*.md"| A["av-swe scope"]
-    A -->|"swe/specs/*.md"| B["av-swe plan"]
-    B -->|"PLAN.md + sprints/sprint-NNN/"| C["av-swe implement"]
-    C -->|"task done"| C
-    C --> D["av-swe status / validate"]
-    D -.->|"next sprint"| C
-    E["av-swe block / unblock"] -.-> C
-    F["av-swe configure"] -.-> B
-    F -.-> C
-```
+![AV-SWE end-to-end process: grilling, scoping, planning, the implementation task state machine, recovery, sprint verification, and final delivery.](docs/av-swe-process.png)
 
 ## Install
 
